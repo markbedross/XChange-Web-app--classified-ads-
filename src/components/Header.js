@@ -12,21 +12,23 @@ function Header(props) {
         <img src={logo} alt="" width="100" height="25" />
       </Link>
       <div className="centerWidget" style={{ display: "flex" }}>
-        <div>Location</div>
+        <div style={{alignSelf: 'center'}}>Location</div>
         <div
           style={{
             margin: 3,
             border: '1px solid lightgrey'
           }}
         ></div>
-        <div>Create</div>
+        <div style={{alignSelf: 'center'}}>Create</div>
         <div
           style={{
             margin: 3,
             border: '1px solid lightgrey'
           }}
         ></div>
-        <SearchIcon className="search" fontSize={'small'}/>
+        <div className="search-container">
+          <SearchIcon className="search" fontSize={'small'}/>
+        </div>
       </div>
       <Link to={'/login'} class="login">
         <MenuIcon  style={{marginRight: 5}}/>

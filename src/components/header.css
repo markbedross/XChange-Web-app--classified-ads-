@@ -1,22 +1,25 @@
 .headerContainer{
     display: flex;
     justify-content: space-between;
-    padding: 4px;
     align-items: center;
 }
 
 .centerWidget{
-    /* border: 1px solid grey; */
     border-radius: 20px;
     padding: 4px 10px;
     gap: 3px;
     box-shadow: 1px 1px 5px rgb(190, 190, 190);
+    /* max-width: 400px; */
+    /* display: flex; */
+    /* flex-grow: 1; */
+    margin: 0 20px
 }
 
 .search{
     padding: 3px;
-    border: 1px solid grey;
     border-radius: 20px;
+    background-color: #f5385d;
+    color: white
 }
 
 .login{
