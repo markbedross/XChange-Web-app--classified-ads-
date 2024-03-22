@@ -1,0 +1,31 @@
+.headerContainer{
+    display: flex;
+    justify-content: space-between;
+    padding: 4px;
+    align-items: center;
+}
+
+.centerWidget{
+    /* border: 1px solid grey; */
+    border-radius: 20px;
+    padding: 4px 10px;
+    gap: 3px;
+    box-shadow: 1px 1px 5px rgb(190, 190, 190);
+}
+
+.search{
+    padding: 3px;
+    border: 1px solid grey;
+    border-radius: 20px;
+}
+
+.login{
+    border-radius: 20px;
+    padding: 4px 10px;
+    box-shadow: 1px 1px 5px rgb(190, 190, 190);
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
