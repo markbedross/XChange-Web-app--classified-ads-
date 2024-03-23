@@ -6,14 +6,17 @@ import HomePage from './components/HomePage';
 import RegisterPage from './components/RegisterPage';
 
 function App() {
+
+  const API = "http://localhost:8000"
+
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route path="/" element={<HomePage />}/>
-            <Route path="/login" element={<LoginPage />}/>
-            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/" element={<HomePage API={API}/>}/>
+            <Route path="/login" element={<LoginPage API={API}/>}/>
+            <Route path="/register" element={<RegisterPage API={API}/>} />
           </Route>
         </Routes>
       </BrowserRouter>

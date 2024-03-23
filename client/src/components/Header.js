@@ -30,7 +30,7 @@ function Header(props) {
           <SearchIcon className="search" fontSize={'small'}/>
         </div>
       </div>
-      <Link to={'/login'} class="login">
+      <Link to={'/login'} className="login">
         <MenuIcon  style={{marginRight: 5}}/>
         <PersonIcon />
       </Link>
