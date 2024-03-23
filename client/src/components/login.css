@@ -29,3 +29,11 @@ button{
     color: white;
     box-sizing: content-box;
 }
+
+button:hover{
+    cursor: pointer;
+}
+
+button:active{
+    background-color: #ff6483;
+}

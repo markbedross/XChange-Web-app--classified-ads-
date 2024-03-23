@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
+const User = require("./models/User")
+const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
 const PORT = 8000
@@ -14,12 +16,23 @@ mongoose.connect(process.env.connection)
     app.listen(PORT, ()=>console.log(`Listening on ${PORT}`))
 })
 
+const createToken = _id => jwt.sign({_id}, process.env.jwtSecret, { expiresIn: '5d' })
+
 app.get('/test', (req, res)=>{
     res.json({"test": "test"})
 })
 
-app.post('/register', (req, res)=>{
+app.post('/register', async (req, res)=>{
+
     const {name, email, password} = req.body
+
+    try{
+        const user = await User.register(name, email, password)
+        const token = createToken(user._id)
+        res.json({token})
+    } catch (err) {
+        res.status(500).json({error: err.message})
+    }
+
     console.log("post")
-    res.json({name, email, password})
 })
