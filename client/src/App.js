@@ -23,9 +23,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout user={user} setUser={setUser}/>}>
-            <Route path="/" element={<HomePage API={API} setUser={setUser}/>}/>
-            <Route path="/login" element={<LoginPage API={API} setUser={setUser}/>}/>
-            <Route path="/register" element={<RegisterPage API={API} setUser={setUser}/>} />
+            <Route path="/" element={<HomePage API={API} user={user} setUser={setUser}/>}/>
+            <Route path="/login" element={<LoginPage API={API} user={user} setUser={setUser}/>}/>
+            <Route path="/register" element={<RegisterPage API={API} user={user} setUser={setUser}/>} />
           </Route>
         </Routes>
       </BrowserRouter>

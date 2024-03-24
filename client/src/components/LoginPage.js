@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./login.css";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false)
+
+  const navigation = useNavigate()
 
   const login = async (e) => {
     e.preventDefault();
@@ -38,6 +41,11 @@ function LoginPage(props) {
       setIsLoading(false)
     }
   };
+
+  useEffect(()=>{
+    if (props.user) navigation('/')
+    console.log("load", props.user)
+  })
 
   return (
     <div className="container">

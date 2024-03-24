@@ -5,9 +5,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import PersonIcon from '@mui/icons-material/Person';
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Header(props) {
 
+  const navigate = useNavigate()
   useEffect(()=> {if(props.user) console.log("header", props.user)}, [props.user])
 
   return (
@@ -47,6 +49,7 @@ function Header(props) {
         <button onClick={()=>{
           props.setUser(null)
           localStorage.removeItem('user')
+          navigate('/login')
           }}>Log Out</button>}
       </div>
     </div>
