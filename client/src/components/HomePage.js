@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from "react";
+import { MainContext } from "../contexts/MainContext";
 
 function HomePage(props) {
-    return (
-        <div>
-            home
-        </div>
-    );
+
+  const { API, user, setUser } = useContext(MainContext);
+  const [data, setData] = useState()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`${API}/home`, {
+        headers: {
+          'Authorization': `Bearer: ${user.token}`,
+        },
+      });
+      const data = await response.json()
+      console.log("home rend")
+      setData(data.test)
+    };
+
+    if (user) fetchData()
+  }, []);
+
+  return <div>{data || "home"}</div>;
 }
 
 export default HomePage;

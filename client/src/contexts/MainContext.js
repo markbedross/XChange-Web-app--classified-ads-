@@ -4,15 +4,16 @@ export const MainContext = createContext({});
 
 export const MainContextProvider = ({ children }) => {
 
-    useEffect(()=>{
-        const user = JSON.parse(localStorage.getItem('user'))
-    
-        setUser(user)
-        console.log("context: ", user)
-      }, [])
-
     const API = "http://localhost:8000"
     const [user, setUser] = useState();
+    const [ready, setReady] = useState(false);
 
-  return <MainContext.Provider value={{API, user, setUser}}>{children}</MainContext.Provider>;
+    useEffect(()=>{
+        const user = JSON.parse(localStorage.getItem('user'))
+        setUser(user)
+        console.log("context: ", user)
+        setReady(true)
+      }, [])
+
+  return <MainContext.Provider value={{API, user, setUser, ready}}>{children}</MainContext.Provider>;
 };

@@ -48,7 +48,6 @@ function LoginPage(props) {
 
   useEffect(()=>{
     if (user) navigation('/')
-    console.log("load", user)
   })
 
   return (

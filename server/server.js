@@ -18,7 +18,11 @@ mongoose.connect(process.env.connection)
 
 const createToken = _id => jwt.sign({_id}, process.env.jwtSecret, { expiresIn: '5d' })
 
-app.get('/test', (req, res)=>{
+app.get('/home', (req, res)=>{
+
+    const {authorization} = req.headers
+    console.log(authorization)
+
     res.json({"test": "test"})
 })
 

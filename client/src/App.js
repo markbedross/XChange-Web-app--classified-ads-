@@ -5,6 +5,7 @@ import Layout from './components/Layout';
 import HomePage from './components/HomePage';
 import RegisterPage from './components/RegisterPage';
 import { MainContextProvider } from './contexts/MainContext';
+import ProfilePage from './components/ProfilePage';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
               <Route path="/" element={<HomePage />}/>
               <Route path="/login" element={<LoginPage />}/>
               <Route path="/register" element={<RegisterPage />} />
+              <Route path="/profile/:subpage?" element={<ProfilePage />} />
             </Route>
           </Routes>
         </BrowserRouter>
