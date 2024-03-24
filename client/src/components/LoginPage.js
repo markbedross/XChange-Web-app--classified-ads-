@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./login.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { MainContext } from "../contexts/MainContext";
 
 function LoginPage(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false)
+  
+  const {API, user, setUser} = useContext(MainContext)
 
   const navigation = useNavigate()
 
@@ -17,7 +20,8 @@ function LoginPage(props) {
     setIsLoading(true)
     setError(null)
 
-    const res = await fetch(`${props.API}/login`, {
+    console.log(API)
+    const res = await fetch(`${API}/login`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -37,14 +41,14 @@ function LoginPage(props) {
     } else {
       console.log("login", data)
       localStorage.setItem('user', JSON.stringify(data))
-      props.setUser(data)
+      setUser(data)
       setIsLoading(false)
     }
   };
 
   useEffect(()=>{
-    if (props.user) navigation('/')
-    console.log("load", props.user)
+    if (user) navigation('/')
+    console.log("load", user)
   })
 
   return (

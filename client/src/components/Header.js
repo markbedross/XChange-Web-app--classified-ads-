@@ -4,13 +4,14 @@ import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
 import PersonIcon from '@mui/icons-material/Person';
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { MainContext } from "../contexts/MainContext";
 
 function Header(props) {
 
   const navigate = useNavigate()
-  useEffect(()=> {if(props.user) console.log("header", props.user)}, [props.user])
+  const {user, setUser} = useContext(MainContext)
 
   return (
     <div className="headerContainer">
@@ -40,14 +41,14 @@ function Header(props) {
       <Link to={'/login'} className="login">
         <MenuIcon  style={{marginRight: 5}}/>
         <PersonIcon />
-        {props.user &&
+        {user &&
       <div style={{display: 'flex', alignItems: 'center', gap: 10}}>
-        {props.user.name}
+        {user.name}
       </div>}
       </Link>
-      {props.user &&
+      {user &&
         <button onClick={()=>{
-          props.setUser(null)
+          setUser(null)
           localStorage.removeItem('user')
           navigate('/login')
           }}>Log Out</button>}
