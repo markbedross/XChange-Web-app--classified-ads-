@@ -38,20 +38,21 @@ function Header(props) {
         </div>
       </div>
       <div style={{display: 'flex', gap: 6}}>
-      <Link to={'/login'} className="login">
-        <MenuIcon  style={{marginRight: 5}}/>
-        <PersonIcon />
+        <Link to={'/login'} className="login">
+          <MenuIcon  style={{marginRight: 5}}/>
+          <PersonIcon />
+          {user &&
+          <div style={{borderColor: 'black', borderWidth: 1, borderStyle: 'solid'}}>
+            {user.name}
+          </div>}
+        </Link>
         {user &&
-      <div style={{display: 'flex', alignItems: 'center', gap: 10}}>
-        {user.name}
-      </div>}
-      </Link>
-      {user &&
-        <button onClick={()=>{
-          setUser(null)
-          localStorage.removeItem('user')
-          navigate('/login')
-          }}>Log Out</button>}
+          <button onClick={()=>{
+            setUser(null)
+            localStorage.removeItem('user')
+            navigate('/login')
+            }}>Log Out
+            </button>}
       </div>
     </div>
   );
