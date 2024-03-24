@@ -34,18 +34,21 @@ function Header(props) {
           <SearchIcon className="search" fontSize={'small'}/>
         </div>
       </div>
+      <div style={{display: 'flex', gap: 6}}>
       <Link to={'/login'} className="login">
         <MenuIcon  style={{marginRight: 5}}/>
         <PersonIcon />
+        {props.user &&
+      <div style={{display: 'flex', alignItems: 'center', gap: 10}}>
+        {props.user.name}
+      </div>}
       </Link>
       {props.user &&
-      <div style={{display: 'flex', alignItems: 'center', gap: 10}}>
-        {props.user.email}
         <button onClick={()=>{
           props.setUser(null)
           localStorage.removeItem('user')
-          }}>Log Out</button>
-      </div>}
+          }}>Log Out</button>}
+      </div>
     </div>
   );
 }

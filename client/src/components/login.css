@@ -38,9 +38,14 @@ button:active{
     background-color: #ff6483;
 }
 
+.login{
+    display: flex;
+    align-items: center;
+}
+
 .error {
     background-color: rgb(255, 184, 184);
-    width: 50%;
+    width: 70%;
     height: 50px;
     text-align: center;
     align-items: center;

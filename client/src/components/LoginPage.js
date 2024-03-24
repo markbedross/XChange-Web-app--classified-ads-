@@ -32,7 +32,6 @@ function LoginPage(props) {
       console.log("res not ok: " + data.error)
       setError(data.error)
     } else {
-      console.log(data)
       console.log("login", data)
       localStorage.setItem('user', JSON.stringify(data))
       props.setUser(data)

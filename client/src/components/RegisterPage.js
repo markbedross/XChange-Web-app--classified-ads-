@@ -52,7 +52,7 @@ function RegisterPage(props) {
           onChange={(e) => setName(e.target.value)}
         />
         <input
-          type="email"
+          type="text"
           placeholder="your@email.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}

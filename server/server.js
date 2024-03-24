@@ -29,7 +29,7 @@ app.post('/register', async (req, res)=>{
     try{
         const user = await User.register(name, email, password)
         const token = createToken(user._id)
-        res.json({email, token})
+        res.json({name, email, token})
     } catch (err) {
         res.status(500).json({error: err.message})
     }
@@ -43,8 +43,9 @@ app.post('/login', async (req, res)=>{
 
     try{
         const user = await User.login(email, password)
+        const name = user.name
         const token = createToken(user._id)
-        res.json({email, token})
+        res.json({name, email, token})
     } catch (err) {
         res.status(500).json({error: err.message})
     }
