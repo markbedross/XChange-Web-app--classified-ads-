@@ -33,7 +33,9 @@ function LoginPage(props) {
       setError(data.error)
     } else {
       console.log(data)
+      console.log("login", data)
       localStorage.setItem('user', JSON.stringify(data))
+      props.setUser(data)
       setIsLoading(false)
     }
   };

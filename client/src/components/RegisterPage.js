@@ -34,8 +34,9 @@ function RegisterPage(props) {
       console.log("res not ok: " + data.error)
       setError(data.error)
     } else {
-      console.log(data)
+      console.log("register", data)
       localStorage.setItem('user', JSON.stringify(data))
+      props.setUser(data)
       setIsLoading(false)
     }
   };
@@ -63,7 +64,7 @@ function RegisterPage(props) {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button>Register</button>
-        {error && <div className="error">{error}</div> }
+        {error && <div className="error">{error}</div>}
         <div style={{ color: "grey", fontSize: 14 }}>
           Already have an account?&nbsp;
           <Link to={"/login"} style={{ color: "#f5385d" }}>
