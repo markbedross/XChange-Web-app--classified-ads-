@@ -36,3 +36,18 @@ app.post('/register', async (req, res)=>{
 
     console.log("post")
 })
+
+app.post('/login', async (req, res)=>{
+
+    const {email, password} = req.body
+
+    try{
+        const user = await User.login(email, password)
+        const token = createToken(user._id)
+        res.json({token})
+    } catch (err) {
+        res.status(500).json({error: err.message})
+    }
+
+    console.log("post")
+})

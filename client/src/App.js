@@ -4,10 +4,12 @@ import LoginPage from './components/LoginPage';
 import Layout from './components/Layout';
 import HomePage from './components/HomePage';
 import RegisterPage from './components/RegisterPage';
+import { useState } from 'react';
 
 function App() {
 
   const API = "http://localhost:8000"
+  const [user, setUser] = useState({});
 
   return (
     <div className="App">

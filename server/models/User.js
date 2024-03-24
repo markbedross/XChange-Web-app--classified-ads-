@@ -21,7 +21,6 @@ const userSchema = new mongoose.Schema({
 userSchema.statics.register = async function(name, email, password) {
 
     if (!name || !email || !password) throw Error("All fields must be included")
-
     if (!validator.isEmail(email)) throw Error("Not a valid email")
     if (!validator.isStrongPassword(password)) throw Error("Password not strong enough")
 
@@ -33,6 +32,22 @@ userSchema.statics.register = async function(name, email, password) {
     const hash = await bcrypt.hash(password, salt)
 
     const user = await this.create({name, email, password: hash})
+
+    return user
+}
+
+userSchema.statics.login = async function(email, password) {
+
+    if (!email || !password) throw Error("All fields must be included")
+
+    const user = await this.findOne({ email })
+    // console.log(user)
+
+    if (!user) throw Error("Incorrect email")
+
+    const match = await bcrypt.compare(password, user.password)
+
+    if (!match) throw Error("Incorrect password")
 
     return user
 }

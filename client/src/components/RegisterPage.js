@@ -6,23 +6,38 @@ function RegisterPage(props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
 
-  const registerUser = (e) => {
+  const registerUser = async (e) => {
     e.preventDefault();
 
-    fetch(`${props.API}/register`, {
+    setIsLoading(true)
+    setError(null)
+
+    const res = await fetch(`${props.API}/register`, {
       method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         name,
         email,
         password,
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      })
     })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+    
+    const data = await res.json()
+
+    if (!res.ok){
+      setIsLoading(false)
+      console.log("res not ok: " + data.error)
+      setError(data.error)
+    } else {
+      console.log(data)
+      localStorage.setItem('user', JSON.stringify(data))
+      setIsLoading(false)
+    }
   };
 
   return (
@@ -48,6 +63,7 @@ function RegisterPage(props) {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button>Register</button>
+        {error && <div className="error">{error}</div> }
         <div style={{ color: "grey", fontSize: 14 }}>
           Already have an account?&nbsp;
           <Link to={"/login"} style={{ color: "#f5385d" }}>
