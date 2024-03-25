@@ -21,6 +21,7 @@ mongoose.connect(process.env.connection)
 .then(()=>{
     app.listen(PORT, ()=>console.log(`Listening on ${PORT}`))
 })
+.catch (err => console.log(err))
 
 const createToken = _id => jwt.sign({_id}, process.env.jwtSecret, { expiresIn: '5d' })
 
@@ -68,26 +69,31 @@ const photoMiddlware = multer({dest: 'uploads'})
 
 app.post('/upload', photoMiddlware.array('photos', 100), async(req, res)=>{
 
-    const {authorization} = req.headers
-
-    if(!authorization) res.status(500).json({error: "Authorization token required"})
+    try{
+        const {authorization} = req.headers
     
-    const {_id} = jwt.verify(token, process.env.jwtSecret)
-    const user = await User.findOne({_id})
-
-    if (!user) res.status(500).json({error: "Not authorized"})
-
-    const uploadedFiles = []
-    for (let i = 0; i < req.files.length; i++){
-        const {path, originalname} = req.files[i]
-        const parts = originalname.split('.')
-        const ext = parts[parts.length - 1]
-        const newPath = path + '.' + ext
-        fs.renameSync(path, newPath)
-        uploadedFiles.push(newPath.replace('uploads\\', ''))
+        if(!authorization) throw Error("Authorization token required")
+    
+        const token = authorization.split(' ')[1] // gets token from authorization header
+        const {_id} = jwt.verify(token, process.env.jwtSecret)
+        const user = await User.findOne({_id})
+    
+        if (!user) throw Error("Not authorized")
+    
+        const uploadedFiles = []
+        for (let i = 0; i < req.files.length; i++){
+            const {path, originalname} = req.files[i]
+            const parts = originalname.split('.')
+            const ext = parts[parts.length - 1]
+            const newPath = path + '.' + ext
+            fs.renameSync(path, newPath)
+            uploadedFiles.push(newPath.replace('uploads\\', ''))
+        }
+    
+        res.json(uploadedFiles)
+    } catch(err){
+        res.status(500).json({error: err.message})
     }
-
-    res.json(uploadedFiles)
 })
 
 app.post('/createAd', async(req, res)=>{

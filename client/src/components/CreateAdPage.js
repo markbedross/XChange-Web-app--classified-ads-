@@ -19,19 +19,24 @@ function CreateAdPage(props) {
 
   const uploadPhoto = async (e) => {
     const files = e.target.files;
-    const data = new FormData();
+    const filelist = new FormData();
     for (let i = 0; i < files.length; i++) {
-      data.append("photos", files[i]);
+      filelist.append("photos", files[i]);
     }
     axios
-      .post(`${API}/upload`, data, {
-        headers: { "Content-type": "multipart/form-data" },
+      .post(`${API}/upload`, filelist, {
+        headers: {
+          "Content-type": "multipart/form-data",
+          Authorization: `Bearer: ${user.token}`,
+        },
       })
       .then((res) => {
         setPhotos((prev) => {
           return [...prev, ...res.data];
         });
-      });
+      })
+      .catch(err => setError(err.message))
+
   };
 
   const createAd = async (e) => {
