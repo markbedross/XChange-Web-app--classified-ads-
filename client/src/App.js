@@ -6,6 +6,7 @@ import HomePage from './components/HomePage';
 import RegisterPage from './components/RegisterPage';
 import { MainContextProvider } from './contexts/MainContext';
 import ProfilePage from './components/ProfilePage';
+import CreateAdPage from './components/CreateAdPage';
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
               <Route path="/login" element={<LoginPage />}/>
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/profile/:subpage?" element={<ProfilePage />} />
+              <Route path="/create" element={<CreateAdPage />} />
             </Route>
           </Routes>
         </BrowserRouter>

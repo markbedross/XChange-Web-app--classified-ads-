@@ -25,12 +25,20 @@ function ProfilePage(props) {
         {subpage === 'profile' && (
             <div className="profile">
                Logged in as: {user.name} ({user.email})
-               <button onClick={()=>{
+               <button className="logout" onClick={()=>{
                 setUser(null)
                 localStorage.removeItem('user')
                 navigate('/')
                 }}>Log Out
             </button>
+            </div>
+        )}
+        {subpage === 'myads' && (
+            <div className="myads">
+                <button className="createButton" onClick={() => navigate('/create')}>Create new ad</button>
+                <div className="ad-list">
+                    my places
+                </div>
             </div>
         )}
     </div>

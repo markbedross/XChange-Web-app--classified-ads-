@@ -51,23 +51,23 @@ function LoginPage(props) {
   })
 
   return (
-    <div className="container">
+    <div className="login-container">
       <h2>Login</h2>
-      <form onSubmit={e => login(e)}>
-        <input
+      <form className="login-form" onSubmit={e => login(e)}>
+        <input className="loginInput"
           type="text"
           placeholder="your@email.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <input
+        <input className="loginInput"
           type="password"
           placeholder="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button>Login</button>
-        {error && <div className="error">{error}</div> }
+        <button className="loginButton">Login</button>
+        {error && <div className="login-error">{error}</div> }
         <div style={{ color: "grey", fontSize: 14 }}>
           Don't have an account yet?&nbsp;
           <Link to={"/register"} style={{ color: "#f5385d" }}>

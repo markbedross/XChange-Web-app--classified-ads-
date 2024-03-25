@@ -1,4 +1,4 @@
-.container{
+.login-container{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,7 +6,7 @@
     flex-grow: 1;
 }
 
-form{
+.login-form{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,7 +14,7 @@ form{
     min-width: 30%
 }
 
-input, button{
+.loginInput{
     width: 100%;
     margin: 0;
     border-radius: 8px;
@@ -22,19 +22,22 @@ input, button{
     padding: 10px 10px;
 }
 
-button{
+.loginButton{
     width: 100%;
     margin: 0;
     background-color: #f5385d;
     color: white;
     box-sizing: content-box;
+    border-radius: 8px;
+    border: 1px solid grey;
+    padding: 10px 10px;
 }
 
-button:hover{
+.loginButton:hover{
     cursor: pointer;
 }
 
-button:active{
+.loginButton:active{
     background-color: #ff6483;
 }
 
@@ -43,7 +46,7 @@ button:active{
     align-items: center;
 }
 
-.error {
+.login-error {
     background-color: rgb(255, 184, 184);
     width: 70%;
     height: 50px;
