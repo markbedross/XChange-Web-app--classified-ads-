@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
+const User = require('./User')
 
 const adSchema = new mongoose.Schema({
     owner: {type:mongoose.Schema.Types.ObjectId, ref:'User'},
@@ -28,6 +29,9 @@ adSchema.statics.createAd = async function(headers, data){
 
     try{
         const {_id} = jwt.verify(token, process.env.jwtSecret)
+        const user = await User.findOne({_id})
+
+        if (!user) throw Error("Not authorized")
 
         const ad = await this.create({
             owner: _id,

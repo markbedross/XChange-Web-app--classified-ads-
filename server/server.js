@@ -66,7 +66,17 @@ app.post('/login', async (req, res)=>{
 
 const photoMiddlware = multer({dest: 'uploads'})
 
-app.post('/upload', photoMiddlware.array('photos', 100) ,(req, res)=>{
+app.post('/upload', photoMiddlware.array('photos', 100), async(req, res)=>{
+
+    const {authorization} = req.headers
+
+    if(!authorization) res.status(500).json({error: "Authorization token required"})
+    
+    const {_id} = jwt.verify(token, process.env.jwtSecret)
+    const user = await User.findOne({_id})
+
+    if (!user) res.status(500).json({error: "Not authorized"})
+
     const uploadedFiles = []
     for (let i = 0; i < req.files.length; i++){
         const {path, originalname} = req.files[i]
@@ -76,6 +86,7 @@ app.post('/upload', photoMiddlware.array('photos', 100) ,(req, res)=>{
         fs.renameSync(path, newPath)
         uploadedFiles.push(newPath.replace('uploads\\', ''))
     }
+
     res.json(uploadedFiles)
 })
 
