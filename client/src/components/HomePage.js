@@ -19,9 +19,9 @@ function HomePage(props) {
     };
 
     if (user) fetchData()
-  }, []);
+  }, [user]);
 
-  return <div>{data || "home"}</div>;
+  return <div>{data || "Home"}</div>;
 }
 
 export default HomePage;

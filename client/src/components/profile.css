@@ -26,6 +26,62 @@
 
 .ad-list {
     margin-top: 20px;
+    max-width: 60%
+}
+
+.adListThumbnail {
+    width: 80px;
+    aspect-ratio: 1;
+    padding: 0;
+    margin: 0;
+    border-radius: 10px;
+}
+
+.imageBox{
+    width: 80px;
+    height: 80px;
+    aspect-ratio: 1;
+    background-color: rgb(201, 201, 201);
+    border-radius: 10px;
+}
+
+.ad {
+    display: flex;
+    background-color: rgb(234, 234, 234);
+    height: 80px;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+    /* border: 1px solid black; */
+}
+
+.text{
+    width: 100%;
+    height: 100%;
+    margin-left: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.titlePrice {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.description {
+    font-size: 12px;
+    margin-top: 4px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.location {
+    font-size: 12px;
+    justify-self: flex-end;
 }
 
 .createButton{

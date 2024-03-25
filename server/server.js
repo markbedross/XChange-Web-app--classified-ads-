@@ -79,7 +79,7 @@ app.post('/upload', photoMiddlware.array('photos', 100), async(req, res)=>{
         const user = await User.findOne({_id})
     
         if (!user) throw Error("Not authorized")
-    
+
         const uploadedFiles = []
         for (let i = 0; i < req.files.length; i++){
             const {path, originalname} = req.files[i]
@@ -89,16 +89,41 @@ app.post('/upload', photoMiddlware.array('photos', 100), async(req, res)=>{
             fs.renameSync(path, newPath)
             uploadedFiles.push(newPath.replace('uploads\\', ''))
         }
-    
         res.json(uploadedFiles)
     } catch(err){
         res.status(500).json({error: err.message})
     }
 })
 
-app.post('/createAd', async(req, res)=>{
-    console.log("Create ad", req.body)
+app.get('/createAd/:id', async(req, res)=>{
 
+    const adId = req.params.id
+
+    try{
+        const {authorization} = req.headers
+    
+        if(!authorization) throw Error("Authorization token required")
+    
+        const token = authorization.split(' ')[1] // gets token from authorization header
+        const {_id} = jwt.verify(token, process.env.jwtSecret)
+        const user = await User.findOne({_id})
+    
+        if (!user) throw Error("Not authorized")
+
+        const ad = await Ad.findOne({_id: adId})
+
+        if (user._id.toString() !== ad.owner.toString()) throw Error("Not authorized")
+
+        res.json(ad)
+
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).json({error: err.message})
+    }
+
+})
+
+app.post('/createAd', async(req, res)=>{
     try{
         const ad = await Ad.createAd(req.headers, req.body)
         res.json(ad)
@@ -106,7 +131,53 @@ app.post('/createAd', async(req, res)=>{
         console.log(err.message)
         res.status(500).json({error: err.message})
     }
+})
 
+app.put('/createAd/:id', async(req, res)=>{
+    try{
+        const {authorization} = req.headers
+    
+        if(!authorization) throw Error("Authorization token required")
+    
+        const token = authorization.split(' ')[1] // gets token from authorization header
+        const {_id} = jwt.verify(token, process.env.jwtSecret)
+        const user = await User.findOne({_id})
+    
+        if (!user) throw Error("Not authorized")
+
+        console.log("just before enter update")
+        const ad = await Ad.updateAd(req.headers, req.body)
+        res.json(ad)
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).json({error: err.message})
+    }
+})
+
+app.get('/ads', async(req, res)=>{
+
+    try {
+    const {authorization} = req.headers
+    
+    if(!authorization) throw Error("Authorization token required")
+
+    const token = authorization.split(' ')[1] // gets token from authorization header
+    const {_id} = jwt.verify(token, process.env.jwtSecret)
+    const user = await User.findOne({_id})
+
+    if (!user) throw Error("Not authorized")
+
+    const ads = await Ad.find({owner: _id})
+
+    res.json(ads)
+
+    } catch (err) {
+        res.status(500).json({error: err.message})
+    }
+})
+
+app.get('/ads/:id', (req, res) => {
+    // res.json(req.params.id)
 })
 
 /*

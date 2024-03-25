@@ -8,14 +8,43 @@ import "./createAd.css";
 function CreateAdPage(props) {
   const { user, ready, API } = useContext(MainContext);
   const navigate = useNavigate();
-  let { subpage } = useParams();
+  let { subpage, id } = useParams();
 
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
   const [photos, setPhotos] = useState([]);
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const getAdId = async () => {
+      if (id && ready) {
+        const res = await fetch(`${API}/createAd/${id}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer: ${user.token}`,
+          },
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          console.log(data.error);
+          navigate("/profile/myad");
+        } else {
+          console.log("get ad: ", data);
+          setTitle(data.title);
+          setLocation(data.location);
+          setPhotos(data.photos);
+          setDescription(data.description);
+          setPrice(data.price);
+        }
+      }
+    };
+
+    getAdId();
+  }, [ready]);
 
   const uploadPhoto = async (e) => {
     const files = e.target.files;
@@ -35,8 +64,7 @@ function CreateAdPage(props) {
           return [...prev, ...res.data];
         });
       })
-      .catch(err => setError(err.message))
-
+      .catch((err) => setError(err.response.data.error));
   };
 
   const createAd = async (e) => {
@@ -50,22 +78,37 @@ function CreateAdPage(props) {
       price,
     };
 
-    const res = await fetch(`${API}/createAd`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer: ${user.token}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(ad),
-    })
+    let res;
 
-    const data = await res.json()
+    if (id) {
+      console.log("if true")
+      res = await fetch(`${API}/createAd/${id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer: ${user.token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({id, ...ad}),
+      });
+    } else {
+      console.log("if false")
+      res = await fetch(`${API}/createAd`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer: ${user.token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(ad),
+      });
+    }
 
-    if(!res.ok){
+    const data = await res.json();
+
+    if (!res.ok) {
       console.log("res not ok: " + data.error);
       setError(data.error);
     } else {
-      navigate('/profile/myads')
+      navigate("/profile/myads");
     }
   };
 
@@ -138,7 +181,7 @@ function CreateAdPage(props) {
           onChange={(e) => setPrice(e.target.value)}
         />
         {error && <div className="login-error">{error}</div>}
-        <button className="createAdButton">Post ad</button>
+        <button className="createAdButton">{id ? "Update" : "Post"} ad</button>
       </form>
     </div>
   );
