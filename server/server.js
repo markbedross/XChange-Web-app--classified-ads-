@@ -135,17 +135,6 @@ app.post('/createAd', async(req, res)=>{
 
 app.put('/createAd/:id', async(req, res)=>{
     try{
-        const {authorization} = req.headers
-    
-        if(!authorization) throw Error("Authorization token required")
-    
-        const token = authorization.split(' ')[1] // gets token from authorization header
-        const {_id} = jwt.verify(token, process.env.jwtSecret)
-        const user = await User.findOne({_id})
-    
-        if (!user) throw Error("Not authorized")
-
-        console.log("just before enter update")
         const ad = await Ad.updateAd(req.headers, req.body)
         res.json(ad)
     } catch (err) {

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import "./createAd.css";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function CreateAdPage(props) {
   const { user, ready, API } = useContext(MainContext);
@@ -112,6 +113,14 @@ function CreateAdPage(props) {
     }
   };
 
+  const removePhoto = (link) => {
+    setPhotos(prev => prev.filter(photo => photo !== link))
+  }
+
+  const selectMainPic = (link) => {
+    setPhotos([link, ...photos.filter(photo => photo !== link)])
+  }
+
   if (subpage === undefined) subpage = "profile";
 
   if (!ready) return "Loading...";
@@ -146,14 +155,20 @@ function CreateAdPage(props) {
             alignItems: "center",
           }}
         >
-          {photos.length > 0 &&
-            photos.map((link) => (
-              <img
-                key={link}
-                className="thumbnail"
-                src={`${API}/uploads/${link}`}
-                alt=""
-              />
+        {photos.length > 0 &&
+            photos.map((link, index) => (
+              <div style={{position: 'relative'}}>
+                <img
+                  key={link}
+                  className={index == 0 ? "first thumbnail" :"thumbnail"}
+                  src={`${API}/uploads/${link}`}
+                  alt=""
+                  onClick={() => selectMainPic(link)}
+                />
+                <div onClick={()=>{removePhoto(link)}}>
+                  <DeleteIcon className="deleteIcon"/>
+                </div>
+              </div>
             ))}
           <label className="uploadButton">
             <input
