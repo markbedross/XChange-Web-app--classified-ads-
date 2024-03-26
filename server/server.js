@@ -25,14 +25,6 @@ mongoose.connect(process.env.connection)
 
 const createToken = _id => jwt.sign({_id}, process.env.jwtSecret, { expiresIn: '5d' })
 
-app.get('/home', (req, res)=>{
-
-    const {authorization} = req.headers
-    console.log(authorization)
-
-    res.json({"test": "test"})
-})
-
 app.post('/register', async (req, res)=>{
 
     const {name, email, password} = req.body
@@ -143,7 +135,7 @@ app.put('/createAd/:id', async(req, res)=>{
     }
 })
 
-app.get('/ads', async(req, res)=>{
+app.get('/userAds', async(req, res)=>{
 
     try {
     const {authorization} = req.headers
@@ -165,14 +157,6 @@ app.get('/ads', async(req, res)=>{
     }
 })
 
-app.get('/ads/:id', (req, res) => {
-    // res.json(req.params.id)
+app.get('/ads', async (req, res) => {
+    res.json(await Ad.find({}))
 })
-
-/*
-    title,
-    location,
-    photos,
-    description,
-    price
-*/
