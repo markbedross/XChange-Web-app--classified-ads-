@@ -2,6 +2,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 40px;
+    /* box-shadow: 1px 1px 5px rgb(190, 190, 190); */
 }
 
 .centerWidget{

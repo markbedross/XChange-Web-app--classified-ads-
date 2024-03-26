@@ -45,6 +45,7 @@ function AdPage(props) {
       <div style={{display: "flex"}}>
         <div className="adPageImageContainer">
           <img
+            onClick={()=>setBigImg(0)}
             className="adPageImage"
             src={
               ad.photos.length > 0
