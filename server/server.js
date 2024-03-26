@@ -160,3 +160,8 @@ app.get('/userAds', async(req, res)=>{
 app.get('/ads', async (req, res) => {
     res.json(await Ad.find({}))
 })
+
+app.get('/ads/:id', async (req, res) => {
+    const {id} = req.params
+    res.json (await Ad.find({_id: id}))
+})
