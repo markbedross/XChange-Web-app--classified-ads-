@@ -60,12 +60,6 @@ function ProfilePage(props) {
         )}
         {subpage === "myads" && (
           <div className="myads">
-            <button
-              className="createButton"
-              onClick={() => navigate("/create")}
-            >
-              Create new ad
-            </button>
             <div className="ad-list">
               {places.length > 0 &&
                 places.map((place) => (

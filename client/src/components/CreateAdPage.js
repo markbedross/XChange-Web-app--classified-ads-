@@ -41,11 +41,17 @@ function CreateAdPage(props) {
           setDescription(data.description);
           setPrice(data.price);
         }
+      } else {
+        setTitle("");
+        setLocation("");
+        setPhotos([]);
+        setDescription("");
+        setPrice("");
       }
     };
 
     getAdId();
-  }, [ready]);
+  }, [id]);
 
   const uploadPhoto = async (e) => {
     const files = e.target.files;
@@ -112,6 +118,18 @@ function CreateAdPage(props) {
       navigate("/profile/myads");
     }
   };
+
+  const deleteAd = async() => {
+    if (id) {
+      fetch(`${API}/delete/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer: ${user.token}`,
+        }
+      })
+      navigate('/profile/myads')
+    }
+  }
 
   const removePhoto = (link) => {
     setPhotos(prev => prev.filter(photo => photo !== link))
@@ -196,7 +214,10 @@ function CreateAdPage(props) {
           onChange={(e) => setPrice(e.target.value)}
         />
         {error && <div className="login-error">{error}</div>}
-        <button className="createAdButton">{id ? "Update" : "Post"} ad</button>
+        <div className="buttonsContainer">
+          <button className="createAdButton">{id ? "Update" : "Post"} ad</button>
+          {id ? <label onClick={deleteAd} className="deleteAdButton">Delete ad</label> : <></>}
+        </div>
       </form>
     </div>
   );

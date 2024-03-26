@@ -32,10 +32,10 @@
     padding: 10px 10px;
 }
 
-.uploadButton, .createAdButton {
+.uploadButton, .createAdButton, .deleteAdButton {
     font-size: 14px;
     text-align: center;
-    width: 50%;
+    width: 25%;
     background-color: #f5385d;
     color: white;
     box-sizing: content-box;
@@ -44,12 +44,28 @@
     padding: 10px 20px;
 }
 
-.uploadButton:hover, .createAdButton:hover{
+.uploadButton{
+    width: 50%
+}
+
+.uploadButton:hover, .createAdButton:hover, .deleteAdButton:hover{
     cursor: pointer;
 }
 
-.uploadButton:active, .createAdButton:active{
+.uploadButton:active, .createAdButton:active, .deleteAdButton:active{
     background-color: #ff6483;
+}
+
+.deleteAdButton{
+    background-color: #ca0028;
+    justify-self: flex-end;
+}
+
+.buttonsContainer {
+    width: 150%;
+    display: flex;
+    /* border: 1px solid black; */
+    justify-content: space-between;
 }
 
 .first {

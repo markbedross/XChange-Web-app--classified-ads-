@@ -165,3 +165,9 @@ app.get('/ads/:id', async (req, res) => {
     const {id} = req.params
     res.json (await Ad.find({_id: id}))
 })
+
+app.delete('/delete/:id', async (req, res) => {
+    const {id} = req.params
+    const deletedAd = await Ad.deleteAd(req.headers, id)
+    res.json(deletedAd)
+})
