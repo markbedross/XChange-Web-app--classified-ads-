@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MainContext } from "../contexts/MainContext";
 import { useNavigate } from "react-router";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./createAd.css";
 import DeleteIcon from '@mui/icons-material/Delete';
 
-function CreateAdPage(props) {
+function CreateAdPage() {
   const { user, ready, API } = useContext(MainContext);
   const navigate = useNavigate();
   let { subpage, id } = useParams();
@@ -178,7 +178,7 @@ function CreateAdPage(props) {
               <div style={{position: 'relative'}}>
                 <img
                   key={link}
-                  className={index == 0 ? "first thumbnail" :"thumbnail"}
+                  className={index === 0 ? "first thumbnail" :"thumbnail"}
                   src={`${API}/uploads/${link}`}
                   alt=""
                   onClick={() => selectMainPic(link)}

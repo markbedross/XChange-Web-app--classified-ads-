@@ -1,14 +1,13 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MainContext } from "../contexts/MainContext";
 import { useNavigate } from "react-router";
 import { Link, useParams } from "react-router-dom";
 import "./profile.css";
 
-function ProfilePage(props) {
+function ProfilePage() {
   const { user, setUser, ready, API } = useContext(MainContext);
   const navigate = useNavigate();
   let { subpage } = useParams();
-  let { id } = useParams()
   const [places, setPlaces] = useState([]);
   const [placesLoaded, setPlacesLoaded] = useState(false);
 
@@ -25,7 +24,7 @@ function ProfilePage(props) {
     };
     fetchPlaces();
     setPlacesLoaded(true);
-  }, [placesLoaded, id]);
+  }, [placesLoaded]);
 
   if (subpage === undefined) subpage = "profile";
 
@@ -61,7 +60,7 @@ function ProfilePage(props) {
         {subpage === "myads" && (
           <div className="myads">
             <div className="ad-list">
-              {places.length > 0 &&
+              {(placesLoaded && places.length > 0) &&
                 places.map((place) => (
                   <Link to={`/create/${place._id}`} className="ad" key={place._id}>
                     <div className={"imageBox"}>
@@ -81,6 +80,7 @@ function ProfilePage(props) {
                     </div>
                   </Link>
                 ))}
+                {(places.length === 0) && <div style={{alignSelf: 'center', marginTop: 50}}>You have no ads</div>}
             </div>
           </div>
         )}

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function HomePage(props) {
 
-  const { API, user,  } = useContext(MainContext);
+  const { API } = useContext(MainContext);
   const [ads, setAds] = useState([])
 
   useEffect(() => {

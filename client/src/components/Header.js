@@ -1,16 +1,14 @@
 import "./header.css";
 import logo from "../images/sitelogo.png";
-import SearchIcon from "@mui/icons-material/Search";
-import MenuIcon from "@mui/icons-material/Menu";
 import PersonIcon from "@mui/icons-material/Person";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { MainContext } from "../contexts/MainContext";
 
-function Header(props) {
+function Header() {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(MainContext);
+  const { user } = useContext(MainContext);
 
   return (
     <div className="headerContainer">
