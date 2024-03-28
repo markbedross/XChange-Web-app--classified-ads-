@@ -11,7 +11,7 @@ function AdPage(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`${API}/ads/${id}`);
+      const res = await fetch(`${API}/ad/${id}`);
       const data = await res.json();
       setAd(data[0]);
       console.log(data[0]);

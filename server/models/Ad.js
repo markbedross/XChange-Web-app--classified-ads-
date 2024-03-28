@@ -11,24 +11,24 @@ const adSchema = new mongoose.Schema({
     price: Number
 })
 
-adSchema.statics.createAd = async function(headers, data){
+adSchema.statics.createAd = async function(headers, data){ // static method for creating an ad
 
-    const {authorization} = headers
-    const {title, location, photos, description, price} = data
+    const {authorization} = headers // get authorization token from headers
+    const {title, location, photos, description, price} = data // destructure data
 
     if (!title || !location || !price) throw Error("Title, Location, and Price are required")
     if (isNaN(price)) throw Error("Price must be a number")
-    if (!authorization) throw Error("Authorization needed")
+    if (!authorization) throw Error("Authorization needed") // checks
 
     const token = authorization.split(' ')[1] // gets token from authorization header
 
     try{
-        const {_id} = jwt.verify(token, process.env.jwtSecret)
+        const {_id} = jwt.verify(token, process.env.jwtSecret) // verify user isn't garbage data
         const user = await User.findOne({_id})
 
-        if (!user) throw Error("Not authorized")
+        if (!user) throw Error("Not authorized") // if user doesn't exist, throw error
 
-        const ad = await this.create({
+        const ad = await this.create({ // puts ad in db
             owner: _id,
             title,
             location,
@@ -46,33 +46,28 @@ adSchema.statics.createAd = async function(headers, data){
 
 }
 
-adSchema.statics.updateAd = async function(headers, data){
+adSchema.statics.updateAd = async function(headers, data){ // add static method to Ad model to update ad
 
     const {authorization} = headers
     const {id, title, location, photos, description, price} = data
 
-    console.log("got")
-
     if (!title || !location || !price) throw Error("Title, Location, and Price are required")
     if (isNaN(price)) throw Error("Price must be a number")
-
-    console.log("got past")
-
     if (!authorization) throw Error("Authorization needed")
 
     const token = authorization.split(' ')[1] // gets token from authorization header
 
     try{
-        const {_id} = jwt.verify(token, process.env.jwtSecret)
+        const {_id} = jwt.verify(token, process.env.jwtSecret) // verify the id from the token
         const user = await User.findOne({_id})
 
         if (!user) throw Error("Not authorized")
 
         const ad = await this.findOne({_id: id})
 
-        if (user._id.toString() !== ad.owner.toString()) throw Error("Not authorized")
+        if (user._id.toString() !== ad.owner.toString()) throw Error("Not authorized") // make sure user is owner
 
-        const updatedAd = await ad.set({
+        const updatedAd = await ad.set({ // sets chosen ad to new ad
             title,
             location,
             photos,
@@ -80,9 +75,9 @@ adSchema.statics.updateAd = async function(headers, data){
             price
         })
 
-        await updatedAd.save()
+        await updatedAd.save() // saves updated ad to db
 
-        return ad
+        return updatedAd
 
     } catch (err) {
         console.log(err)
@@ -90,7 +85,7 @@ adSchema.statics.updateAd = async function(headers, data){
     }
 }
 
-adSchema.statics.deleteAd = async function(headers, id) {
+adSchema.statics.deleteAd = async function(headers, id) { // static method for deleting ad
     const {authorization} = headers
     if (!authorization) throw Error("Authorization needed")
 
@@ -106,7 +101,7 @@ adSchema.statics.deleteAd = async function(headers, id) {
 
         if (user._id.toString() !== ad.owner.toString()) throw Error("Not authorized")
 
-        const deletedAd = await this.deleteOne({_id: id})
+        const deletedAd = await this.deleteOne({_id: id}) // deletes ad from db
 
         return deletedAd
 

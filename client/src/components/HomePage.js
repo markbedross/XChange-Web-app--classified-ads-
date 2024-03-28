@@ -10,7 +10,7 @@ function HomePage(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`${API}/ads`);
+      const response = await fetch(`${API}/ad/ads`);
       const data = await response.json()
       console.log(data)
       setAds(data)

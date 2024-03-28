@@ -14,7 +14,7 @@ function ProfilePage() {
   useEffect(() => {
     const fetchPlaces = async () => {
       if (!ready) return;
-      const res = await fetch(`${API}/userAds`, {
+      const res = await fetch(`${API}/user/ads`, {
         headers: {
           Authorization: `Bearer: ${user.token}`,
         },

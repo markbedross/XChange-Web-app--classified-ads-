@@ -21,7 +21,7 @@ function CreateAdPage() {
   useEffect(() => {
     const getAdId = async () => {
       if (id && ready) {
-        const res = await fetch(`${API}/createAd/${id}`, {
+        const res = await fetch(`${API}/ad/createAd/${id}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer: ${user.token}`,
@@ -34,7 +34,6 @@ function CreateAdPage() {
           console.log(data.error);
           navigate("/profile/myad");
         } else {
-          console.log("get ad: ", data);
           setTitle(data.title);
           setLocation(data.location);
           setPhotos(data.photos);
@@ -51,7 +50,7 @@ function CreateAdPage() {
     };
 
     getAdId();
-  }, [id]);
+  }, [id, ready]);
 
   const uploadPhoto = async (e) => {
     const files = e.target.files;
@@ -60,7 +59,7 @@ function CreateAdPage() {
       filelist.append("photos", files[i]);
     }
     axios
-      .post(`${API}/upload`, filelist, {
+      .post(`${API}/ad/upload`, filelist, {
         headers: {
           "Content-type": "multipart/form-data",
           Authorization: `Bearer: ${user.token}`,
@@ -88,8 +87,7 @@ function CreateAdPage() {
     let res;
 
     if (id) {
-      console.log("if true")
-      res = await fetch(`${API}/createAd/${id}`, {
+      res = await fetch(`${API}/ad/createAd/${id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer: ${user.token}`,
@@ -98,8 +96,7 @@ function CreateAdPage() {
         body: JSON.stringify({id, ...ad}),
       });
     } else {
-      console.log("if false")
-      res = await fetch(`${API}/createAd`, {
+      res = await fetch(`${API}/ad/createAd`, {
         method: "POST",
         headers: {
           Authorization: `Bearer: ${user.token}`,
@@ -121,7 +118,7 @@ function CreateAdPage() {
 
   const deleteAd = async() => {
     if (id) {
-      fetch(`${API}/delete/${id}`, {
+      fetch(`${API}/ad/delete/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer: ${user.token}`,

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import "./login.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MainContext } from "../contexts/MainContext";
 
 function RegisterPage(props) {
@@ -8,17 +8,16 @@ function RegisterPage(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   const { API, setUser } = useContext(MainContext);
+  const navigate = useNavigate()
 
   const registerUser = async (e) => {
     e.preventDefault();
 
-    setIsLoading(true);
     setError(null);
 
-    const res = await fetch(`${API}/register`, {
+    const res = await fetch(`${API}/user/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,14 +32,12 @@ function RegisterPage(props) {
     const data = await res.json();
 
     if (!res.ok) {
-      setIsLoading(false);
       console.log("res not ok: " + data.error);
       setError(data.error);
     } else {
-      console.log("register", data);
       localStorage.setItem("user", JSON.stringify(data));
       setUser(data);
-      setIsLoading(false);
+      navigate('/')
     }
   };
 

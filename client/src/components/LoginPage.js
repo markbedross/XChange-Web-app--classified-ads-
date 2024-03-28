@@ -8,7 +8,6 @@ function LoginPage(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false)
   
   const {API, user, setUser} = useContext(MainContext)
 
@@ -17,11 +16,10 @@ function LoginPage(props) {
   const login = async (e) => {
     e.preventDefault();
 
-    setIsLoading(true)
     setError(null)
 
     console.log(API)
-    const res = await fetch(`${API}/login`, {
+    const res = await fetch(`${API}/user/login`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -35,14 +33,12 @@ function LoginPage(props) {
     const data = await res.json()
 
     if (!res.ok){
-      setIsLoading(false)
       console.log("res not ok: " + data.error)
       setError(data.error)
     } else {
       console.log("login", data)
       localStorage.setItem('user', JSON.stringify(data))
       setUser(data)
-      setIsLoading(false)
     }
   };
 
