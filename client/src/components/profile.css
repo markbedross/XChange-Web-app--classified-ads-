@@ -1,12 +1,7 @@
 .nav{
-    /* border: 1px solid black; */
     gap: 30px;
     margin-top: 16px;
     display: flex;
-}
-
-.link {
-    /* color: red */
 }
 
 .profile{
@@ -55,7 +50,6 @@
     margin: 10px 0;
     padding: 10px;
     border-radius: 10px;
-    /* border: 1px solid black; */
 }
 
 .text{
