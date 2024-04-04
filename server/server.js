@@ -13,11 +13,11 @@ app.use(cors())
 
 app.use('/uploads', express.static(__dirname+'/uploads'))
 
+app.use('/ad', adRoutes)
+app.use('/user', userRoutes)
+
 mongoose.connect(process.env.connection)
 .then(()=>{
     app.listen(PORT, ()=>console.log(`Listening on ${PORT}`))
 })
 .catch (err => console.log(err))
-
-app.use('/ad', adRoutes)
-app.use('/user', userRoutes)
