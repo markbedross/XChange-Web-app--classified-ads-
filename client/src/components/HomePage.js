@@ -24,7 +24,7 @@ function HomePage(props) {
 
   return(
   <div className="homeContainer">
-    {ads && ads.map((item)=>{
+    {placesLoaded && ads.map((item)=>{
       console.log(item)
       return (
       <Link to={'/ad/' + item._id} className="homeAd" key={item._id}>
