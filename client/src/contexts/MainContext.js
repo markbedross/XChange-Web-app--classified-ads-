@@ -4,7 +4,7 @@ export const MainContext = createContext({});
 
 export const MainContextProvider = ({ children }) => {
 
-    const API = "http://localhost:8000"
+    const API = "https://xchange-api-six.vercel.app"
     const [user, setUser] = useState();
     const [ready, setReady] = useState(false);
 
