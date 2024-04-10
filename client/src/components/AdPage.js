@@ -28,7 +28,7 @@ function AdPage(props) {
         <div className="adBigImageContainer" onClick={() => setBigImg(-1)}>
           <img
             className="adBigImage"
-            src={`${API}/uploads/${ad.photos[bigImg]}`}
+            src={ad.photos[bigImg]}
             alt=""
           />
         </div>
@@ -49,7 +49,7 @@ function AdPage(props) {
             className="adPageImage"
             src={
               ad.photos.length > 0
-                ? `${API}/uploads/${ad.photos[0]}`
+                ? ad.photos[0]
                 : `${API}/uploads/no-image.svg`
             }
             alt=""
@@ -67,7 +67,7 @@ function AdPage(props) {
                     >
                       <img
                         className="extraPhoto"
-                        src={`${API}/uploads/${photo}`}
+                        src={photo}
                         alt=""
                       />
                     </button>

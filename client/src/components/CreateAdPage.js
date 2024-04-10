@@ -52,25 +52,40 @@ function CreateAdPage() {
     getAdId();
   }, [id, ready]);
 
+  const convertToBase64 = file => {
+    return new Promise((resolve, reject)=>{
+      const fileReader = new FileReader()
+      fileReader.readAsDataURL(file)
+      fileReader.onload = () => {
+        resolve(fileReader.result)
+      }
+      fileReader.onerror = err => {
+        reject(err)
+      }
+    })
+  }
+
   const uploadPhoto = async (e) => {
     const files = e.target.files;
-    const filelist = new FormData();
+    // const filelist = new FormData();
     for (let i = 0; i < files.length; i++) {
-      filelist.append("photos", files[i]);
+      // filelist.append("photos", files[i]);
+      const b64 = await convertToBase64(files[i])
+      setPhotos(prev => [...prev, b64])
     }
-    axios
-      .post(`${API}/ad/upload`, filelist, {
-        headers: {
-          "Content-type": "multipart/form-data",
-          Authorization: `Bearer: ${user.token}`,
-        },
-      })
-      .then((res) => {
-        setPhotos((prev) => {
-          return [...prev, ...res.data];
-        });
-      })
-      .catch((err) => setError(err.response.data.error));
+    // axios
+    //   .post(`${API}/ad/upload`, filelist, {
+    //     headers: {
+    //       "Content-type": "multipart/form-data",
+    //       Authorization: `Bearer: ${user.token}`,
+    //     },
+    //   })
+    //   .then((res) => {
+    //     setPhotos((prev) => {
+    //       return [...prev, ...res.data];
+    //     });
+    //   })
+    //   .catch((err) => setError(err.response.data.error));
   };
 
   const createAd = async (e) => {
@@ -176,7 +191,7 @@ function CreateAdPage() {
                 <img
                   key={link}
                   className={index === 0 ? "first thumbnail" :"thumbnail"}
-                  src={`${API}/uploads/${link}`}
+                  src={link}
                   alt=""
                   onClick={() => selectMainPic(link)}
                 />

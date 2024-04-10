@@ -2,10 +2,11 @@ const express = require('express')
 const jwt = require('jsonwebtoken')
 const multer = require('multer')
 const fs = require('fs')
-require('dotenv').config()
 
 const User = require("../models/User.js")
 const Ad = require('../models/Ad.js')
+
+require('dotenv').config()
 
 const photoMiddlware = multer({dest: 'uploads'})
 const router = express.Router()
@@ -89,6 +90,7 @@ router.get('/ads', async (req, res) => { // returns all ads
             fs.renameSync(path, newPath)
             uploadedFiles.push(newPath.replace('uploads\\', ''))
         }
+
         res.json(uploadedFiles)
     } catch(err){
         res.status(500).json({error: err.message})

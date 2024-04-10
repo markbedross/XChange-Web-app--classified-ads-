@@ -25,7 +25,7 @@ function HomePage(props) {
       <Link to={'/ad/' + item._id} className="homeAd" key={item._id}>
         <div className="homeImgContainer">
           <img className="homeImg"
-          src={item.photos.length > 0 ? `${API}/uploads/${item.photos[0]}` : `${API}/uploads/no-image.svg`}
+          src={item.photos.length > 0 ? item.photos[0] : `${API}/uploads/no-image.svg`}
           alt="" />
         </div>
         <h2 className="homeAdTitle">{item.title}</h2>

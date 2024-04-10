@@ -65,7 +65,7 @@ function ProfilePage() {
                   <Link to={`/create/${place._id}`} className="ad" key={place._id}>
                     <div className={"imageBox"}>
                       <img className="adListThumbnail"
-                      src={place.photos.length > 0 ? `${API}/uploads/${place.photos[0]}` : `${API}/uploads/no-image.svg`}
+                      src={place.photos.length > 0 ? place.photos[0] : `${API}/uploads/no-image.svg`}
                       alt="" />
                     </div>
                     <div className="text">
