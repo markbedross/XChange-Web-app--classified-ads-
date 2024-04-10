@@ -1,14 +1,13 @@
 const express = require('express')
 const jwt = require('jsonwebtoken')
-const multer = require('multer')
-const fs = require('fs')
+// const multer = require('multer')
 
 const User = require("../models/User.js")
 const Ad = require('../models/Ad.js')
 
 require('dotenv').config()
 
-const photoMiddlware = multer({dest: 'uploads'})
+// const photoMiddlware = multer({dest: 'uploads'})
 const router = express.Router()
 
 router.get('/ads', async (req, res) => { // returns all ads

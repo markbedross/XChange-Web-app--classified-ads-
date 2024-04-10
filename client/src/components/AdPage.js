@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { MainContext } from "../contexts/MainContext";
 import { useParams } from "react-router";
 import "./adPage.css";
+import noImg from "../images/no-image.svg";
 
 function AdPage(props) {
   const { API } = useContext(MainContext);
@@ -45,12 +46,12 @@ function AdPage(props) {
       <div style={{display: "flex"}}>
         <div className="adPageImageContainer">
           <img
-            onClick={()=>setBigImg(0)}
+            onClick={()=> ad.photos.length > 0 ? setBigImg(0) : null}
             className="adPageImage"
             src={
               ad.photos.length > 0
                 ? ad.photos[0]
-                : `${API}/uploads/no-image.svg`
+                : noImg
             }
             alt=""
           />

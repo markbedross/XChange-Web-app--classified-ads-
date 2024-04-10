@@ -3,6 +3,7 @@ import { MainContext } from "../contexts/MainContext";
 import { useNavigate } from "react-router";
 import { Link, useParams } from "react-router-dom";
 import "./profile.css";
+import noImg from "../images/no-image.svg";
 
 function ProfilePage() {
   const { user, setUser, ready, API } = useContext(MainContext);
@@ -65,7 +66,7 @@ function ProfilePage() {
                   <Link to={`/create/${place._id}`} className="ad" key={place._id}>
                     <div className={"imageBox"}>
                       <img className="adListThumbnail"
-                      src={place.photos.length > 0 ? place.photos[0] : `${API}/uploads/no-image.svg`}
+                      src={place.photos.length > 0 ? place.photos[0] : noImg}
                       alt="" />
                     </div>
                     <div className="text">

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { MainContext } from "../contexts/MainContext";
 import './home.css'
 import { Link } from "react-router-dom";
+import noImg from "../images/no-image.svg";
 
 function HomePage(props) {
 
@@ -25,7 +26,7 @@ function HomePage(props) {
       <Link to={'/ad/' + item._id} className="homeAd" key={item._id}>
         <div className="homeImgContainer">
           <img className="homeImg"
-          src={item.photos.length > 0 ? item.photos[0] : `${API}/uploads/no-image.svg`}
+          src={item.photos.length > 0 ? item.photos[0] : noImg}
           alt="" />
         </div>
         <h2 className="homeAdTitle">{item.title}</h2>
