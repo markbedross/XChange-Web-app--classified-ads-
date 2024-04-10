@@ -25,16 +25,18 @@ function HomePage(props) {
     {ads && ads.map((item)=>{
       console.log(item)
       return (
-      <Link to={'/ad/' + item._id} className="homeAd" key={item._id}>
-        <div className="homeImgContainer">
-          <img className="homeImg"
-          src={item.photos.length > 0 ? item.photos[0] : noImg}
-          alt="" />
+        <div>
+        <Link to={'/ad/' + item._id} className="homeAd" key={item._id}>
+          <div className="homeImgContainer">
+            <img className="homeImg"
+            src={item.photos.length > 0 ? item.photos[0] : noImg}
+            alt="" />
+          </div>
+          <h2 className="homeAdTitle">{item.title}</h2>
+          <h3 className="homeAdLocation">{item.location}</h3>
+          <h3 className="homeAdPrice">${item.price}</h3>
+        </Link>
         </div>
-        <h2 className="homeAdTitle">{item.title}</h2>
-        <h3 className="homeAdLocation">{item.location}</h3>
-        <h3 className="homeAdPrice">${item.price}</h3>
-      </Link>
       )
     })}
   </div>
