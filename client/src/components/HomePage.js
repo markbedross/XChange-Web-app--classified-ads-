@@ -25,8 +25,6 @@ function HomePage(props) {
     {ads && ads.map((item)=>{
       console.log(item)
       return (
-        <div>
-        link
         <Link to={'/ad/' + item._id} key={item._id}>
           <div className="homeImgContainer">
             <img className="homeImg"
@@ -37,7 +35,6 @@ function HomePage(props) {
           <h3 className="homeAdLocation">{item.location}</h3>
           <h3 className="homeAdPrice">${item.price}</h3>
         </Link>
-        </div>
       )
     })}
   </div>
