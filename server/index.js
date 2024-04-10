@@ -16,7 +16,7 @@ app.use(cors())
 app.use('/ad', adRoutes)
 app.use('/user', userRoutes)
 
-mongoose.connect(process.env.connection)
+mongoose.connect(process.env.MONGODB_URI)
 .then(()=>{
     app.listen(PORT, ()=>console.log(`Listening on ${PORT}`))
 })
