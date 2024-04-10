@@ -27,7 +27,7 @@ function HomePage(props) {
       return (
         <div>
         link
-        <Link to={'/ad/' + item._id} className="homeAd" key={item._id}>
+        <Link to={'/ad/' + item._id} key={item._id}>
           <div className="homeImgContainer">
             <img className="homeImg"
             src={item.photos.length > 0 ? item.photos[0] : noImg}
