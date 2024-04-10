@@ -26,6 +26,7 @@ function HomePage(props) {
       console.log(item)
       return (
         <div>
+        link
         <Link to={'/ad/' + item._id} className="homeAd" key={item._id}>
           <div className="homeImgContainer">
             <img className="homeImg"
