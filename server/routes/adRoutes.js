@@ -68,34 +68,34 @@ router.get('/ads', async (req, res) => { // returns all ads
     }
 })
 
-.post('/upload', photoMiddlware.array('photos', 100), async(req, res)=>{ // route for uploading images
+// .post('/upload', photoMiddlware.array('photos', 100), async(req, res)=>{ // route for uploading images
 
-    try{
-        const {authorization} = req.headers
+//     try{
+//         const {authorization} = req.headers
     
-        if(!authorization) throw Error("Authorization token required")
+//         if(!authorization) throw Error("Authorization token required")
     
-        const token = authorization.split(' ')[1] // gets token from authorization header
-        const {_id} = jwt.verify(token, process.env.jwtSecret)
-        const user = await User.findOne({_id})
+//         const token = authorization.split(' ')[1] // gets token from authorization header
+//         const {_id} = jwt.verify(token, process.env.jwtSecret)
+//         const user = await User.findOne({_id})
     
-        if (!user) throw Error("Not authorized")
+//         if (!user) throw Error("Not authorized")
 
-        const uploadedFiles = []
-        for (let i = 0; i < req.files.length; i++){
-            const {path, originalname} = req.files[i]
-            const parts = originalname.split('.')
-            const ext = parts[parts.length - 1]
-            const newPath = path + '.' + ext
-            fs.renameSync(path, newPath)
-            uploadedFiles.push(newPath.replace('uploads\\', ''))
-        }
+//         const uploadedFiles = []
+//         for (let i = 0; i < req.files.length; i++){
+//             const {path, originalname} = req.files[i]
+//             const parts = originalname.split('.')
+//             const ext = parts[parts.length - 1]
+//             const newPath = path + '.' + ext
+//             fs.renameSync(path, newPath)
+//             uploadedFiles.push(newPath.replace('uploads\\', ''))
+//         }
 
-        res.json(uploadedFiles)
-    } catch(err){
-        res.status(500).json({error: err.message})
-    }
-})
+//         res.json(uploadedFiles)
+//     } catch(err){
+//         res.status(500).json({error: err.message})
+//     }
+// })
 
 .delete('/delete/:id', async (req, res) => { // deletes an ad
     const {id} = req.params
