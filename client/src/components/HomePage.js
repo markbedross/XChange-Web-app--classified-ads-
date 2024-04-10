@@ -26,6 +26,7 @@ function HomePage(props) {
       console.log(item)
       return (
       <div className="homeAd" key={item._id}>
+        test
         <div className="homeImgContainer">
           <img className="homeImg"
           src={item.photos.length > 0 ? item.photos[0] : noImg}
