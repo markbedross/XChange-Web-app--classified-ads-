@@ -8,7 +8,6 @@ function HomePage(props) {
 
   const { API } = useContext(MainContext);
   const [ads, setAds] = useState([])
-  const [placesLoaded, setPlacesLoaded] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,12 +18,11 @@ function HomePage(props) {
     };
 
     fetchData()
-    setPlacesLoaded(true);
-  }, [placesLoaded]);
+  }, []);
 
   return(
   <div className="homeContainer">
-    {placesLoaded && ads.map((item)=>{
+    {ads && ads.map((item)=>{
       console.log(item)
       return (
       <Link to={'/ad/' + item._id} className="homeAd" key={item._id}>
