@@ -9,8 +9,10 @@ const userRoutes = require('./routes/userRoutes.js')
 
 const PORT = 8000
 
+// setting transfer limit to 50mb
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
 app.use(cors())
 
 app.use('/ad', adRoutes)

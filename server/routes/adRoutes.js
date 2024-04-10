@@ -1,13 +1,9 @@
 const express = require('express')
 const jwt = require('jsonwebtoken')
-// const multer = require('multer')
-
 const User = require("../models/User.js")
 const Ad = require('../models/Ad.js')
-
 require('dotenv').config()
 
-// const photoMiddlware = multer({dest: 'uploads'})
 const router = express.Router()
 
 router.get('/ads', async (req, res) => { // returns all ads
@@ -66,35 +62,6 @@ router.get('/ads', async (req, res) => { // returns all ads
         res.status(500).json({error: err.message})
     }
 })
-
-// .post('/upload', photoMiddlware.array('photos', 100), async(req, res)=>{ // route for uploading images
-
-//     try{
-//         const {authorization} = req.headers
-    
-//         if(!authorization) throw Error("Authorization token required")
-    
-//         const token = authorization.split(' ')[1] // gets token from authorization header
-//         const {_id} = jwt.verify(token, process.env.jwtSecret)
-//         const user = await User.findOne({_id})
-    
-//         if (!user) throw Error("Not authorized")
-
-//         const uploadedFiles = []
-//         for (let i = 0; i < req.files.length; i++){
-//             const {path, originalname} = req.files[i]
-//             const parts = originalname.split('.')
-//             const ext = parts[parts.length - 1]
-//             const newPath = path + '.' + ext
-//             fs.renameSync(path, newPath)
-//             uploadedFiles.push(newPath.replace('uploads\\', ''))
-//         }
-
-//         res.json(uploadedFiles)
-//     } catch(err){
-//         res.status(500).json({error: err.message})
-//     }
-// })
 
 .delete('/delete/:id', async (req, res) => { // deletes an ad
     const {id} = req.params
