@@ -22,7 +22,7 @@ function HomePage(props) {
 
   return(
   <div className="homeContainer">
-    {ads[0].title}
+    {ads && ads[0].title}
     {ads && ads.map((item)=>(
       <Link to={'/ad/' + item._id} className="homeAd" key={item._id}>
         <div className="homeImgContainer">
