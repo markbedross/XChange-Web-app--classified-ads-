@@ -22,9 +22,10 @@ function HomePage(props) {
 
   return(
   <div className="homeContainer">
-    {ads && ads[0].title}
-    {ads && ads.map((item)=>(
-      <Link to={'/ad/' + item._id} className="homeAd" key={item._id}>
+    {ads && ads.map((item)=>{
+      console.log(item)
+      return (
+        <Link to={'/ad/' + item._id} className="homeAd" key={item._id}>
         <div className="homeImgContainer">
           <img className="homeImg"
           src={item.photos.length > 0 ? item.photos[0] : noImg}
@@ -34,7 +35,8 @@ function HomePage(props) {
         <h3 className="homeAdLocation">{item.location}</h3>
         <h3 className="homeAdPrice">${item.price}</h3>
       </Link>
-    ))}
+      )
+    })}
   </div>
   )
 }
