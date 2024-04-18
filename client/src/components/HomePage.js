@@ -22,7 +22,7 @@ function HomePage(props) {
 
   return(
   <div className="homeContainer">
-    {ads && ads.map((item)=>{
+    {ads ? ads.map((item)=>{
       console.log(item)
       return (
         <Link to={'/ad/' + item._id} key={item._id}>
@@ -36,7 +36,10 @@ function HomePage(props) {
           <h3 className="homeAdPrice">${item.price}</h3>
         </Link>
       )
-    })}
+    })
+    :
+    <div>Loading...</div>
+    }
   </div>
   )
 }
