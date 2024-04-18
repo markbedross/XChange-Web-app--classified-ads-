@@ -4,7 +4,7 @@ export const MainContext = createContext({});
 
 export const MainContextProvider = ({ children }) => {
 
-    const API = "https://xchange-api-six.vercel.app"
+    const API = "https://xchange-api-ij4w.onrender.com"
     const [user, setUser] = useState();
     const [ready, setReady] = useState(false);
 
