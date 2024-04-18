@@ -20,6 +20,6 @@ app.use('/user', userRoutes)
 
 mongoose.connect(process.env.MONGODB_URI)
 .then(()=>{
-    app.listen(process.env.PORT, ()=>console.log(`Listening on ${PORT}`))
+    app.listen(process.env.PORT, ()=>console.log(`Listening on ${process.env.PORT}`))
 })
 .catch (err => console.log(err))
